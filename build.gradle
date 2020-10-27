@@ -1,0 +1,69 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.1.RELEASE'
+		springCloudVersion = 'Brixton.SR1'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+jar {
+	baseName = 'spring-boot-camel-example'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('io.dropwizard.metrics:metrics-core')
+	compile('io.dropwizard.metrics:metrics-graphite')
+	compile('org.apache.camel:camel-jackson-starter:2.18.0')
+	compile('org.apache.camel:camel-metrics-starter:2.18.0')
+	compile('org.apache.camel:camel-spring-boot-starter:2.18.0')
+	compile('org.apache.camel:camel-spring-redis-starter:2.18.0')
+	compile('org.apache.camel:camel-stream-starter:2.18.0')
+	compile('org.apache.camel:camel-websocket-starter:2.18.0')
+    compile('org.jolokia:jolokia-core')
+	compile('org.projectlombok:lombok')
+	compile('org.springframework.boot:spring-boot-actuator')
+	compile('org.springframework.boot:spring-boot-starter-jetty')
+	compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+
+    
+    compile("org.springframework:spring-orm")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile('org.apache.camel:camel-stream-starter:2.18.0')
+    
+    compile('org.hsqldb:hsqldb')
+    compile('org.springframework:spring-jdbc')
+    compile('org.apache.commons:commons-dbcp2')
+
+    compile('javax.persistence:javax.persistence-api:2.2')
+   // compile('org.springframework.cloud:spring-cloud-starter-config')
+    compile('org.jolokia:jolokia-core')
+    
+    compile('ch.qos.logback:logback-classic:1.1.7')
+	testCompile('junit:junit:4.12')
+    
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-starter-parent:${springCloudVersion}"
+    }
+}
